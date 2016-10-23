@@ -2,6 +2,7 @@ package com.example.recyclerview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -10,7 +11,8 @@ public class MainActivity extends AppCompatActivity {
     private String[] dataset;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
+    private DividerItemDecoration dividerItemDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new MyAdapter(dataset);
         recyclerView.setAdapter(adapter);
+
+        // Add divider
+        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                                                        layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 }
