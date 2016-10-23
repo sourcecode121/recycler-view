@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
 
     private String[] dataset;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private MyAdapter adapter;
     private LinearLayoutManager layoutManager;
     private DividerItemDecoration dividerItemDecoration;
 
@@ -36,9 +38,17 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyAdapter(dataset);
         recyclerView.setAdapter(adapter);
 
+        // Item click listener
+        adapter.setClickListener(this);
+
         // Add divider
         dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                                                         layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, dataset[position], Toast.LENGTH_SHORT).show();
     }
 }

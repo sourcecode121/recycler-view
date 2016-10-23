@@ -11,17 +11,30 @@ import android.widget.TextView;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] dataset;
+    private OnItemClickListener clickListener;
 
     public MyAdapter(String[] dataset) {
         this.dataset = dataset;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void setClickListener(OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView textView;
 
         public ViewHolder(View v) {
             super(v);
             this.textView = (TextView) v.findViewById(R.id.text_view);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(clickListener != null) {
+                clickListener.onItemClick(view, getAdapterPosition());
+            }
         }
     }
 
